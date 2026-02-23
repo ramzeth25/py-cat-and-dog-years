@@ -1,21 +1,29 @@
+import pytest
 from app.main import get_human_age
 
 
-def test_should_return_zero_list_for_zero_age() -> None:
-    assert get_human_age(14, 14) == [0, 0], \
-        "should return zero list for zero age"
-
-
-def test_should_return_list_with_all_one_if_ages_is_15() -> None:
-    assert get_human_age(15, 15) == [1, 1], \
-        "should return list with all one if ages is 15"
-
-
-def test_should_return_list_more_than_one_age() -> None:
-    assert get_human_age(100, 100) == [21, 17], \
-        "should return list more than one age"
-
-
-def test_should_return_one_human_age() -> None:
-    assert get_human_age(23, 23) == [1, 1], \
-        "should return one human age"
+@pytest.mark.parametrize(
+    "cat_age, dog_age, expected_result",
+    [
+        pytest.param(0, 0, [0, 0],
+                     id="cat and dog years 0 gives [0, 0]"),
+        pytest.param(15, 15, [1, 1],
+                     id="cat and dog years 15 gives [1, 1]"),
+        pytest.param(24, 24, [2, 2],
+                     id="cat and dog years 24 gives [2, 2]"),
+        pytest.param(14, 14, [0, 0],
+                     id="cat and dog years 14 gives [0, 0]"),
+        pytest.param(100, 100, [21, 17],
+                     id="cat and dog years 100 gives [1, 1]"),
+        pytest.param(24, 100, [2, 17],
+                     id="cat 24 and dog 100 years  gives [2, 17]"),
+        pytest.param(100, 28, [21, 2],
+                     id="cat 100 and dog 28 years  gives [21, 2]"),
+    ]
+)
+def test_get_human_age(cat_age: int,
+                       dog_age: int,
+                       expected_result: list
+                       ) -> None:
+    assert get_human_age(cat_age, dog_age) == expected_result, \
+        "get human age should equal expected result"

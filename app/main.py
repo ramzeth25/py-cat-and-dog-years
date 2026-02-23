@@ -19,24 +19,23 @@ def get_human_age(cat_age: int, dog_age: int) -> list:
         get_human_age(24, 24) == [2, 2]
     """
     # TODO: Implement this function
-    cat_human_age, dog_human_age = 0, 0
-    if cat_age < 15 and dog_age < 15:
-        return [cat_human_age, dog_human_age]
-    elif cat_age == 15 and dog_age == 15:
-        cat_human_age += 1
-        dog_human_age += 1
-        return [cat_human_age, dog_human_age]
-    elif cat_age > 15 and dog_age > 15:
-        cat_age -= 15
-        dog_age -= 15
-        cat_human_age += 1
-        dog_human_age += 1
-        if cat_age >= 9 and dog_age >= 9:
-            cat_age -= 9
-            dog_age -= 9
-            cat_human_age += 1
-            dog_human_age += 1
-            if cat_age >= 4 and dog_age >= 5:
-                cat_human_age += cat_age // 4
-                dog_human_age += dog_age // 5
-    return [cat_human_age, dog_human_age]
+    return check_age(cat_age, 4) + check_age(dog_age, 5)
+
+
+def check_age(animal_age: int, animal_mod: int) -> list:
+    result = []
+    if animal_age in range(15):
+        result.append(0)
+        return result
+    elif animal_age == 15:
+        result.append(animal_age // 15)
+        return result
+    elif animal_age == 24:
+        result.append(2)
+        return result
+    else:
+        result.append(2)
+        animal_age -= 24
+        if animal_age >= animal_mod:
+            result[0] += animal_age // animal_mod
+        return result
