@@ -6,10 +6,10 @@ def get_human_age(cat_age: int, dog_age: int) -> list:
 
 
 def check_age(age: int, step: int) -> int:
+    if not isinstance(age, int):
+        raise TypeError("age must be an integer")
     if age < 0:
         raise ValueError("age cannot be negative")
-    elif not isinstance(age, int):
-        raise TypeError("age must be an integer")
     result = 0
     if age < 15:
         return result
